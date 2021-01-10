@@ -2,10 +2,8 @@ class CLI
 
 
     def start
-        Pokemon.new({name: "bulbasaur", type: "grass"})
-        Pokemon.new({name: "charmander", type: "fire"})
-        Pokemon.new({name: "squirtle", type: "water"})
         greeting
+        API.get_data
         menu
     end
 
@@ -47,8 +45,8 @@ class CLI
             pokemon_selection
             menu
         when "2"
-            puts "You chose option 2"
-            list_search_results
+            puts "List of 10 Pokemon out of ... :"
+            list_search_results(Pokemon.all)
             menu
         when "exit"
             goodbye
@@ -57,16 +55,16 @@ class CLI
         end
     end
 
-    def list_search_results
-        ["bulbasaur", "charmander", "squirtle"].each.with_index(1) do |pokemon, i|
-            puts "#{i}. #{pokemon}"
+    def list_search_results(p_array)
+        p_array.each.with_index(1) do |pokemon, i|
+            puts "#{i}. #{pokemon.name}"
         end
     end
 
     def pokemon_selection
         puts "Select a Pokemon for more detail:\t"
         selection = user_input
-        Pokemon.find_by_name(selection)
+        puts Pokemon.find_by_name(selection).name
     end
 
 end
