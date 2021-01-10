@@ -1,10 +1,12 @@
 class Pokemon
 
-    @@all = [{name:"bulbasaur"}, {name:"charmander"}, {name:"squirtle"}]
-
+    @@all = []
+    
     def initialize(attributes)
-        self.class.attr_reader(key)
-        attributes.each {|key, value| self.send(("#{key}="), value)}
+        attributes.each do |key, value| 
+            self.class.attr_accessor(key)
+            self.send(("#{key}="), value)
+        end
         save
     end
 
@@ -14,6 +16,12 @@ class Pokemon
 
     def self.all
         @@all
+    end
+
+    def self.find_by_name(name)
+        self.all.find do |pokemon|
+            pokemon.name == name
+        end
     end
 
 end
