@@ -45,7 +45,7 @@ class CLI
             pokemon_selection
             menu
         when "2"
-            puts "List of 10 Pokemon out of ... :"
+            puts "List of 20 Pokemon out of ... :"
             list_search_results(Pokemon.all)
             menu
         when "exit"
@@ -64,7 +64,14 @@ class CLI
     def pokemon_selection
         puts "Select a Pokemon for more detail:\t"
         selection = user_input
-        puts Pokemon.find_by_name(selection).name
+        pokemon = Pokemon.find_by_name(selection)
+        pokemon_detail(pokemon)
     end
 
+    def pokemon_detail(pokemon)
+        puts "Name:\t #{pokemon.name.capitalize}"
+        puts "Types:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
+        puts "Base XP: #{pokemon.base_experience}"
+        puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
+    end
 end

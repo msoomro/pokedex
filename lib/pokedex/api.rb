@@ -4,7 +4,10 @@ class API
         response = RestClient.get("https://pokeapi.co/api/v2/pokemon/")
         pokemon_array = JSON.parse(response)["results"]
         pokemon_array.each do |pokemon|
-            Pokemon.new(pokemon)
+            response2 = RestClient.get(pokemon["url"])
+            attributes = JSON.parse(response2)
+            attributes[:name] = pokemon["name"]
+            Pokemon.new(attributes)
         end
     end
 
