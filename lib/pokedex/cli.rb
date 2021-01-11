@@ -32,7 +32,7 @@ class CLI
     end
 
     def menu
-        puts "☆  M * E * N * U  ☆\n"
+        puts "\n\n☆  M * E * N * U  ☆\n"
         puts "What would you like to see?\n"
         puts "1. List all Pokemon"
         puts "2. Tell me about one Pokemon"
@@ -73,7 +73,7 @@ class CLI
         selection = user_input
         pokemon = Pokemon.find_by_name(selection) unless selection == 'cancel'
         if selection == 'cancel'
-            menu
+            # do nothing
         elsif pokemon != nil
             pokemon.get_data
             pokemon_detail(pokemon) 
@@ -84,13 +84,13 @@ class CLI
     end
 
     def pokemon_detail(pokemon)
-        puts "\n\n─────────────── *.·:·.☆*☆*☆*☆.·:·.* ───────────────"
+        puts "\n\n─────────────── *.·:·.☆*☆*☆*☆.·:·.*───────────────"
         puts "Name:\t #{pokemon.name.capitalize}"
         puts "Types:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
         puts "Base XP: #{pokemon.base_experience}"
         puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
         puts "Locations: \n\t#{pokemon.locations.join("\n\t").gsub("-", " ")}"
-        puts "\n─────────────── *.·:·.☆*☆*☆*☆.·:·.* ───────────────\n\n"
+        puts "\n─────────────── *.·:·.☆*☆*☆*☆.·:·.*───────────────\n\n"
     end
 
 end
