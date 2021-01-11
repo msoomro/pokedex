@@ -19,7 +19,7 @@ class CLI
     end
 
     def goodbye
-        puts "Goodbye"
+        puts "Goodbye, Trainer"
     end
 
     def invalid
