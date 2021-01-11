@@ -32,7 +32,7 @@ class CLI
     end
 
     def menu
-        puts "\n\n☆  M * E * N * U  ☆\n"
+        puts "\n\n☆  M * E * N * U  ☆\n\n"
         puts "What would you like to see?\n"
         puts "1. List all Pokemon"
         puts "2. Tell me about one Pokemon"
