@@ -2,6 +2,10 @@
 
 A CLI Application that acts as a Pokedex -- supplying organized information about Pokemon species.
 
+Have the option to look at a list of all Pokemon and select individual Pokemon to view details such as: type, base XP, abilities, and locations found.
+
+Go catch them all!
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -17,10 +21,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install pokedex
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
