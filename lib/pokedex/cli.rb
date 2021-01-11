@@ -7,8 +7,15 @@ class CLI
     end
 
     def greeting
+        puts "
+        ██████╗░░█████╗░██╗░░██╗███████╗██████╗░███████╗██╗░░██╗
+        ██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗██╔════╝╚██╗██╔╝
+        ██████╔╝██║░░██║█████═╝░█████╗░░██║░░██║█████╗░░░╚███╔╝░
+        ██╔═══╝░██║░░██║██╔═██╗░██╔══╝░░██║░░██║██╔══╝░░░██╔██╗░
+        ██║░░░░░╚█████╔╝██║░╚██╗███████╗██████╔╝███████╗██╔╝╚██╗
+        ╚═╝░░░░░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝╚═╝░░╚═╝"
         puts "Welcome to your Pokedex."
-        puts "Loading system...\n"
+        puts "Loading system...\n\n\n"
     end
 
     def goodbye
@@ -25,7 +32,8 @@ class CLI
     end
 
     def menu
-        puts "\n\nWhat would you like to see?\n"
+        puts "☆  M * E * N * U  ☆\n"
+        puts "What would you like to see?\n"
         puts "1. List all Pokemon"
         puts "2. Tell me about one Pokemon"
         puts "or type \'exit\' to close the Pokedex."
@@ -61,19 +69,28 @@ class CLI
     end
 
     def pokemon_selection
-        puts "Which Pokemon do you want to learn about:\t"
+        puts "Type Pokemon name (or 'cancel' to return to menu):\t"
         selection = user_input
-        pokemon = Pokemon.find_by_name(selection)
-        pokemon.get_data
-        pokemon_detail(pokemon)
+        pokemon = Pokemon.find_by_name(selection) unless selection == 'cancel'
+        if selection == 'cancel'
+            menu
+        elsif pokemon != nil
+            pokemon.get_data
+            pokemon_detail(pokemon) 
+        else
+            puts "\nHmm, #{selection} is not a valid Pokemon. Try again?"
+            pokemon_selection
+        end
     end
 
     def pokemon_detail(pokemon)
+        puts "\n\n─────────────── *.·:·.☆*☆*☆*☆.·:·.* ───────────────"
         puts "Name:\t #{pokemon.name.capitalize}"
         puts "Types:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
         puts "Base XP: #{pokemon.base_experience}"
         puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
         puts "Locations: \n\t#{pokemon.locations.join("\n\t").gsub("-", " ")}"
+        puts "\n─────────────── *.·:·.☆*☆*☆*☆.·:·.* ───────────────\n\n"
     end
 
 end
