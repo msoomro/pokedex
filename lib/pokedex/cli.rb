@@ -50,7 +50,7 @@ class CLI
         case selection
         when "1"
             puts "All Pokemon ... :"
-            list_search_results(Pokemon.all)
+            list_pokemon(1,20)
             menu
         when "2"
             pokemon_selection
@@ -62,9 +62,28 @@ class CLI
         end
     end
 
-    def list_search_results(p_array)
-        p_array.each.with_index(1) do |pokemon, i|
-            puts "#{i}. #{pokemon.name}"
+    def list_pokemon(i_start, max)
+        i_max = max
+        Pokemon.all.each.with_index(1) do |pokemon, i|
+            if i >= i_start && i < i_max
+                puts "#{i}. #{pokemon.name}"
+            elsif i == i_max
+                puts "#{i}. #{pokemon.name}\n"
+                puts "\n<--|'menu'  \t  <type to navigate>  \t'next'|-->\n"
+
+                loop do
+                    selection = user_input
+                    
+                    if selection == 'menu'
+                        break
+                    elsif selection == 'next'
+                        i_max = i_max + max
+                        break
+                    else
+                        puts "Type 'next' or 'menu'"
+                    end
+                end
+            end
         end
     end
 
