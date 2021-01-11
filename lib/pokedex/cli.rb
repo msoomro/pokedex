@@ -89,8 +89,23 @@ class CLI
         puts "Types:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
         puts "Base XP: #{pokemon.base_experience}"
         puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
-        puts "Locations: \n\t#{pokemon.locations.join("\n\t").gsub("-", " ")}"
         puts "\n─────────────── *.·:·.☆*☆*☆*☆.·:·.*───────────────\n\n"
+        puts "\n<--| 'back'\t  <type to navigate>  \t'locations'|-->\n"
+        pokemon_location(pokemon)
     end
 
+    def pokemon_location(pokemon)
+        selection = user_input
+        if selection == 'locations'
+            puts "==========================《》=========================="
+            puts "#{pokemon.name.capitalize} can be found at these locations: "
+            puts "Locations: \n\t#{pokemon.locations.join("\n\t").gsub("-", " ")}"
+            puts "==========================《》=========================="
+        elsif selection == 'back'
+            # do nothing
+        else
+            puts "\nTry typing 'back' to return to menu or 'locations' to see where this pokemon is found"
+            pokemon_location(pokemon)
+        end
+    end
 end
