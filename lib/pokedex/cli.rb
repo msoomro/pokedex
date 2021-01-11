@@ -1,6 +1,5 @@
 class CLI
 
-
     def start
         greeting
         API.get_data
@@ -8,7 +7,8 @@ class CLI
     end
 
     def greeting
-        puts "Welcome to your Pokedex.\n"
+        puts "Welcome to your Pokedex."
+        puts "Loading system...\n"
     end
 
     def goodbye
@@ -25,9 +25,9 @@ class CLI
     end
 
     def menu
-        puts "\n\nHow would you like to search for a Pokemon?\n"
-        puts "1. Name of Pokemon Species"
-        puts "2. List all Pokemon"
+        puts "\n\nWhat would you like to see?\n"
+        puts "1. List all Pokemon"
+        puts "2. Tell me about one Pokemon"
         puts "or type \'exit\' to close the Pokedex."
         puts "\n"
 
@@ -41,12 +41,11 @@ class CLI
 
         case selection
         when "1"
-            puts "You chose option 1"
-            pokemon_selection
+            puts "All Pokemon ... :"
+            list_search_results(Pokemon.all)
             menu
         when "2"
-            puts "List of 20 Pokemon out of ... :"
-            list_search_results(Pokemon.all)
+            pokemon_selection
             menu
         when "exit"
             goodbye
@@ -62,7 +61,7 @@ class CLI
     end
 
     def pokemon_selection
-        puts "Select a Pokemon for more detail:\t"
+        puts "Which Pokemon do you want to learn about:\t"
         selection = user_input
         pokemon = Pokemon.find_by_name(selection)
         pokemon_detail(pokemon)
@@ -75,4 +74,5 @@ class CLI
         puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
         puts "Locations: \n\t#{pokemon.location.join("\n\t").gsub("-", " ")}"
     end
+
 end
