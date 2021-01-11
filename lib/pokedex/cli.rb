@@ -73,5 +73,6 @@ class CLI
         puts "Types:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
         puts "Base XP: #{pokemon.base_experience}"
         puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
+        puts "Locations: \n\t#{pokemon.location.join("\n\t").gsub("-", " ")}"
     end
 end
