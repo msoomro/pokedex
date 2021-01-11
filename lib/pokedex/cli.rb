@@ -64,6 +64,7 @@ class CLI
         puts "Which Pokemon do you want to learn about:\t"
         selection = user_input
         pokemon = Pokemon.find_by_name(selection)
+        pokemon.get_data
         pokemon_detail(pokemon)
     end
 
@@ -72,7 +73,7 @@ class CLI
         puts "Types:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
         puts "Base XP: #{pokemon.base_experience}"
         puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
-        puts "Locations: \n\t#{pokemon.location.join("\n\t").gsub("-", " ")}"
+        puts "Locations: \n\t#{pokemon.locations.join("\n\t").gsub("-", " ")}"
     end
 
 end
