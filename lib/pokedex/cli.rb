@@ -49,8 +49,9 @@ class CLI
 
         case selection
         when "1"
-            puts "All Pokemon ... :"
-            list_pokemon(1,20)
+            puts "How many pokemon would you like to see at a time?"
+            num_pokemon = user_input;
+            list_pokemon(1,num_pokemon.to_i)
             menu
         when "2"
             pokemon_selection
