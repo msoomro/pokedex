@@ -7,6 +7,7 @@ class CLI
     end
 
     def greeting
+        puts "Loading system..."
         puts "
         ██████╗░░█████╗░██╗░░██╗███████╗██████╗░███████╗██╗░░██╗
         ██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗██╔════╝╚██╗██╔╝
@@ -14,8 +15,8 @@ class CLI
         ██╔═══╝░██║░░██║██╔═██╗░██╔══╝░░██║░░██║██╔══╝░░░██╔██╗░
         ██║░░░░░╚█████╔╝██║░╚██╗███████╗██████╔╝███████╗██╔╝╚██╗
         ╚═╝░░░░░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝╚═╝░░╚═╝"
-        puts "Welcome to your Pokedex."
-        puts "Loading system...\n\n\n"
+        puts "\nWelcome to your Pokedex.\n\n"
+        
     end
 
     def goodbye
@@ -32,34 +33,32 @@ class CLI
     end
 
     def menu
-        puts "\n\n☆  M * E * N * U  ☆\n\n"
-        puts "What would you like to see?\n"
-        puts "1. List all Pokemon"
-        puts "2. Tell me about one Pokemon"
-        puts "or type \'exit\' to close the Pokedex."
+        puts "\n\n\t☆  M  E  N  U  ☆\n\n"
+        #puts "What would you like to see?\n"
+        puts "Type \'list\' to list all Pokemon."
+        puts "Type a Pokemon name to learn more about that Pokemon."
+        puts "Type \'exit\' to close the Pokedex."
         puts "\n"
 
         navigate_menu
     end
 
     def navigate_menu
-        print "Enter the number of the menu option:\t"
+        print "Type your menu option:\t"
         selection = user_input
         puts "\n"
 
         case selection
-        when "1"
+        when "list"
             puts "How many pokemon would you like to see at a time?"
             num_pokemon = user_input;
             list_pokemon(1,num_pokemon.to_i)
             menu
-        when "2"
-            pokemon_selection
-            menu
         when "exit"
             goodbye
         else
-            invalid
+            pokemon_selection(selection)
+            menu
         end
     end
 
@@ -70,7 +69,7 @@ class CLI
                 puts "#{i}. #{pokemon.name}"
             elsif i == i_max
                 puts "#{i}. #{pokemon.name}\n"
-                puts "\n<--|'menu'  \t  <type to navigate>  \t'next'|-->\n"
+                puts "\n<--|'menu'\t <type to navigate>\t'next'|-->\n"
 
                 loop do
                     selection = user_input
@@ -88,18 +87,14 @@ class CLI
         end
     end
 
-    def pokemon_selection
-        puts "Type Pokemon name (or 'cancel' to return to menu):\t"
-        selection = user_input
-        pokemon = Pokemon.find_by_name(selection) unless selection == 'cancel'
-        if selection == 'cancel'
-            # do nothing
-        elsif pokemon != nil
+    def pokemon_selection(selection)
+        pokemon = Pokemon.find_by_name(selection)
+        if pokemon != nil
             pokemon.get_data
             pokemon_detail(pokemon) 
         else
             puts "\nHmm, #{selection} is not a valid Pokemon. Try again?"
-            pokemon_selection
+            menu
         end
     end
 
