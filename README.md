@@ -1,7 +1,13 @@
 # Pokedex
 
-A CLI Application that acts as a Pokedex -- supplying organized information about Pokemon species.
+A CLI (command line interface) application that acts as a Pokedex -- supplying organized information about Pokemon species. This project uses PokeAPI (https://pokeapi.co/).
 
-Have the option to look at a list of all Pokemon and select individual Pokemon to view details such as: type, base XP, abilities, and locations found.
+To run the program, download this code and open the project location in the terminal. Run the following command to start:
+```
+./bin/run
+```
 
-Go catch them all!
+Watch an overview of how the application runs:
+https://www.youtube.com/watch?v=LizU5aqmdQI
+
+Go catch 'em all!
