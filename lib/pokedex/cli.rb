@@ -8,7 +8,7 @@ class CLI
     end
 
     def greeting
-        puts "Loading system..."
+        puts "\tLoading system..."
         puts "
         ██████╗░░█████╗░██╗░░██╗███████╗██████╗░███████╗██╗░░██╗
         ██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗██╔════╝╚██╗██╔╝
@@ -16,16 +16,16 @@ class CLI
         ██╔═══╝░██║░░██║██╔═██╗░██╔══╝░░██║░░██║██╔══╝░░░██╔██╗░
         ██║░░░░░╚█████╔╝██║░╚██╗███████╗██████╔╝███████╗██╔╝╚██╗
         ╚═╝░░░░░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝╚═╝░░╚═╝"
-        puts "\nWelcome to your Pokedex.\n\n"
+        puts "\n\tWelcome to your Pokedex.\n\n"
         
     end
 
     def goodbye
-        puts "Goodbye, Trainer"
+        puts "\tGoodbye, Trainer\n\n"
     end
 
     def invalid
-        puts "Hmm, that doesn't seem like a valid option, try again?"
+        puts "\tHmm, that doesn't seem like a valid option, try again?\n"
         menu
     end
 
@@ -34,25 +34,26 @@ class CLI
     end
 
     def menu
-        puts "\n\n\t☆  M  E  N  U  ☆\n\n"
+        puts "\n\n\t\t .·: M  E  N  U :·. \n\n"
 
-        puts "Type \'list\' to list Pokemon names."
-        puts "Type a Pokemon name to learn more about that Pokemon."
-        puts "Type \'exit\' to close the Pokedex."
-        puts "\n"
+        puts "\tType \'list\' to list Pokemon names."
+        puts "\tType a Pokemon name to learn more about that Pokemon."
+        puts "\tType \'exit\' to close the Pokedex."
+        puts "\n\t"
 
         navigate_menu
     end
 
     def navigate_menu
-        print "Type your menu option:\t"
+        print "\tType your menu option:\t"
         selection = user_input
         puts "\n"
 
         case selection
         when "list"
-            puts "How many pokemon would you like to see at a time?"
+            print "\tHow many pokemon would you like to see at a time?\n\n\t"
             num_pokemon = user_input;
+            puts "\n"
             list_pokemon(1,num_pokemon.to_i)
             menu
         when "exit"
@@ -66,13 +67,12 @@ class CLI
     def list_pokemon(i_start, max)
         i_max = max
         Pokemon.all.each.with_index(1) do |pokemon, i|
-            #binding.pry
             if i == MAXID
-                puts "#{i}. #{pokemon.name}\n"
-                puts "\tEND OF LIST\n\n"
+                puts "\t#{i}. #{pokemon.name}\n"
+                puts "\t\tEND OF LIST\n\n"
                 
-                puts "Type a Pokemon's name to see details about that Pokemon.\n"
-                puts "Type \'menu\' to return to the main menu.\n\n"
+                puts "\tType a Pokemon's name to see details about that Pokemon.\n"
+                print "\tType \'menu\' to return to the main menu.\n\n\t"
 
                 loop do
                     selection = user_input
@@ -81,32 +81,33 @@ class CLI
                         break
                     else
                         if !pokemon_selection(selection)
-                            puts "Type a Pokemon's name to see details about that Pokemon.\n"
-                            puts "Type \'menu\' to return to the main menu.\n\n"
+                            puts "\n\tType a Pokemon's name to see details about that Pokemon.\n"
+                            print "\tType \'menu\' to return to the main menu.\n\n\t"
                         end
                     end
                 end
             elsif i >= i_start && i < i_max
-                puts "#{i}. #{pokemon.name}"
+                puts "\t#{i}. #{pokemon.name}"
             elsif i == i_max
-                puts "#{i}. #{pokemon.name}\n"
-                puts "\nType 'more' to list #{max} more Pokemon."
-                puts "Type a Pokemon's name to see details about that Pokemon.\n"
-                puts "Type \'menu\' to return to the main menu.\n\n"
+                puts "\t#{i}. #{pokemon.name}\n"
+                puts "\n\tType 'more' to list #{max} more Pokemon."
+                puts "\tType a Pokemon's name to see details about that Pokemon.\n"
+                print "\tType \'menu\' to return to the main menu.\n\n\t"
 
                 loop do
                     selection = user_input
                     
                     if selection == "more"
                         i_max = i_max + max
+                        puts ""
                         break
                     elsif selection == "menu"
                         break
                     else
                         if !pokemon_selection(selection)
-                            puts "\nType 'more' to list #{max} more Pokemon."
-                            puts "Type a Pokemon's name to see details about that Pokemon.\n"
-                            puts "Type \'menu\' to return to the main menu.\n\n"
+                            puts "\n\tType 'more' to list #{max} more Pokemon."
+                            puts "\tType a Pokemon's name to see details about that Pokemon.\n"
+                            print "\tType \'menu\' to return to the main menu.\n\n\t"
                         end
                     end
                 end
@@ -122,34 +123,37 @@ class CLI
             pokemon.get_data
             pokemon_detail(pokemon) 
         else
-            puts "\nHmm, #{selection} is not a valid command or Pokemon name. Try again?"
+            puts "\n\tHmm, #{selection} is not a valid command or Pokemon name. Try again?"
             nil
         end
     end
 
     def pokemon_detail(pokemon)
-        puts "\n\n─────────────── *.·:·.☆*☆*☆*☆.·:·.*───────────────"
-        puts "Name:\t #{pokemon.name.capitalize}"
-        puts "Types:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
-        puts "Base XP: #{pokemon.base_experience}"
-        puts "Abilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
-        puts "\n─────────────── *.·:·.☆*☆*☆*☆.·:·.*───────────────\n\n"
-        puts "\nType 'locations' to list locations where #{pokemon.name.capitalize} are found."
-        puts "Type 'back' to return to listing Pokemon.\n\n"
+        puts "\n\n\t─────────────── *.·:·.-.·:·.-.·:·.*───────────────"
+        puts "\tName:\t #{pokemon.name.capitalize}"
+        puts "\tTypes:\t #{pokemon.types.collect {|type| type["type"]["name"]}.join(', ')}"
+        puts "\tBase XP: #{pokemon.base_experience}"
+        puts "\tAbilities: #{pokemon.abilities.collect {|ability| ability["ability"]["name"]}.join(', ')}"
+        puts "\n\t─────────────── *.·:·.-.·:·.-.·:·.*───────────────\n\n"
+        puts "\n\tType 'locations' to list locations where #{pokemon.name.capitalize} are found."
+        print "\tType 'back' to return to the previous options.\n\n\t"
         pokemon_location(pokemon)
     end
 
     def pokemon_location(pokemon)
         selection = user_input
         if selection == 'locations'
-            puts "==========================《》=========================="
-            puts "#{pokemon.name.capitalize} can be found at these locations: "
-            puts "Locations: \n\t#{pokemon.locations.join("\n\t").gsub("-", " ")}"
-            puts "==========================《》=========================="
+            puts "\t==========================<<>>=========================="
+            puts "\t#{pokemon.name.capitalize} can be found at these locations:\n\n"
+            puts "\t#{pokemon.locations.join("\n\t").gsub("-", " ")}"
+            if(pokemon.locations.length == 0)
+                puts "\t\t\t No locations found!\n"
+            end
+            puts "\t==========================<<>>=========================="
         elsif selection == 'back'
-            # do nothing
+            print "\n" #do nothing, just line break
         else
-            puts "\nTry typing 'back' to return to menu or 'locations' to see where this pokemon is found"
+            print "\n\tTry typing 'back' to return to menu or 'locations' to see where this pokemon is found\n\n\t"
             pokemon_location(pokemon)
         end
     end
